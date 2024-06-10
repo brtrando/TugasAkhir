@@ -36,13 +36,6 @@ var globalIdTag = null;
 mqttClient.on('connect', function () {
     console.log("MQTT connected...");
     subscribeToMqttTopics();
-    mqttClient.subscribe('maxbeaconserver', function (err) {
-        if (err) {
-            console.error("Failed to subscribe to MQTT topic:", err);
-        } else {
-            console.log("Subscribed to MQTT topic: maxbeaconserver");
-        }
-    });
 });
 
 mqttClient.on('message', function (topic, message) {
@@ -241,6 +234,7 @@ function subscribeToMqttTopics() {
     var rssible = 'rssible';
     var rangeuwb = 'rangeuwb';
     var tagTopic = 'tag';
+    var maxBeacon = 'maxbeaconserver';
     mqttClient.subscribe(rssible, function (err) {
         if (err) {
             console.error("Failed to subscribe to MQTT topic:", err);
@@ -260,6 +254,13 @@ function subscribeToMqttTopics() {
             console.error("Failed to subscribe to MQTT topic:", err);
         } else {
             console.log("Subscribed to MQTT topic:", tagTopic);
+        }
+    });
+    mqttClient.subscribe('maxBeacon', function (err) {
+        if (err) {
+            console.error("Failed to subscribe to MQTT topic:", err);
+        } else {
+            console.log("Subscribed to MQTT topic: maxBeacon");
         }
     });
 }
